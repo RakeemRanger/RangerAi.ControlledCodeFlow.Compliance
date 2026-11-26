@@ -4,5 +4,4 @@ parameters:
     default: 'default'
 
 steps:
-  - ${{if ne(parameters.armFilePath, 'default')}}:
-    - script: echo ${{parameters.armFilePath }}
+  - script: echo ${{parameters.armFilePath }}
