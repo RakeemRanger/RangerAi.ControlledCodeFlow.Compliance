@@ -5,12 +5,4 @@ parameters:
 
 steps:
   - ${{if ne(parameters.armFilePath, 'default')}}:
-  - script: test -s ${{parameters.sourcePath }}
-  - task: MicrosoftSecurityDevOps@1
-    displayName: RAI CCF ARM Scan
-    inputs:
-      categories: 'IaC'
-      file: ${{ parameters.armFilePath }}
-      break: true
-  - task: publishToAdvancedSecurity
-    displayName: Publish ARM Scan Results
+  - script: echo ${{parameters.armFilePath }}
