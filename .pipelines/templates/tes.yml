@@ -1,0 +1,10 @@
+trigger:
+  - main
+
+variables:
+  artifactPath: $(Build.SourcesDirectory)/dist/infra/main.json
+  
+extends:
+  template: rai.ccf.iac.yml
+  parameters:
+    armFilePath: ${{ variables.artifactPath }}
