@@ -1,0 +1,44 @@
+parameters:
+  - name: buildSteps
+    type: stepList
+  - name: armOutputDirectory
+    type: string
+    default: '$(Build.SourcesDirectory)/compiled-arm'
+  - name: breakOnIssues
+    type: boolean
+    default: true
+
+stages:
+  - stage: Enforce_Rai_CCF_ARM_IaC_Compliance
+    displayName: 'Enforce Rai CCF ARM IaC Build compliance'
+    jobs:
+      - job: MainJob
+        displayName: 'ARM IaC Compliance & Build'
+        steps:
+          - checkout: self
+
+          - ${{ parameters.buildSteps }}
+
+          - task: CmdLine@2
+            displayName: 'Ranger Ai CCF ARM IaC Build compliance check'
+            inputs:
+              script: |
+                echo "Enforcing Ranger Ai CCF ARM IaC Build compliance on $(Build.Repository.Name)"
+                if [ ! -d "${{ parameters.armOutputDirectory }}" ]; then
+                  echo "##vso[task.logissue type=error]Expected compiled ARM output at ${{ parameters.armOutputDirectory }}"
+                  exit 1
+                fi
+
+          - task: MicrosoftSecurityDevOps@1
+            displayName: 'Scanning IaC Compiled ARM'
+            inputs:
+              categories: 'IaC'
+              tools: 'templateanalyzer,checkov'
+              break: ${{ parameters.breakOnIssues }}
+
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Compiled ARM Templates'
+            inputs:
+              targetPath: '${{ parameters.armOutputDirectory }}'
+              artifact: 'arm-templates'
+              publishLocation: 'pipeline'
