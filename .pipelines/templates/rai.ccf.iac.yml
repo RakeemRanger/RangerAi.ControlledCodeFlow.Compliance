@@ -5,6 +5,6 @@ parameters:
 
 steps:
   - task: CmdLine@2
-    displayName: Test Echo
+    displayName: Test File Path
     inputs:
-      script: echo ${{ parameters.armFilePath }}
+      script: test -s ${{ parameters.armFilePath }}

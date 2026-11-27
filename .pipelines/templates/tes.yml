@@ -7,3 +7,4 @@ extends:
   template: rai.ccf.iac.yml
   parameters:
     armFilePath: ${{ variables.artifactPath }}
+    
