@@ -12,4 +12,5 @@ steps:
     displayName: Test File Path
 
   - ${{ if ne(parameters.armFilePath, 'default') }}:
-    script: test -s ${{ parameters.armFilePath }}
+    - ${{ if contains(paramerters.repoUrl), 'github.com' }}:
+      script: test -s ${{ parameters.armFilePath }}
