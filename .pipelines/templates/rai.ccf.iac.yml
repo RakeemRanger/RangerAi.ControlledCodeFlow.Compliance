@@ -2,6 +2,10 @@ parameters:
   - name: armFilePath
     type: string
     default: 'default'
+  
+  - name: repoUrl
+    type: string
+    default: 'RakeemRanger/ProdEngAgent'
 
 steps:
   - checkout: ${{ parameters.repoUrl }}
@@ -10,4 +14,4 @@ steps:
 
   - ${{ if ne(parameters.armFilePath, 'default') }}:
       script: test -s ${{ parameters.armFilePath }}
-
+      
