@@ -4,5 +4,7 @@ parameters:
     default: 'default'
 
 steps:
-  - checkout: self
-  - script: echo $( parameters.armFilePath )
+  - task: CmdLine@2
+    displayName: Test Echo
+    inputs:
+      script: echo ${{ parameters.armFilePath }}
