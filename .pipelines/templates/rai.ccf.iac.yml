@@ -5,7 +5,7 @@ parameters:
   
   - name: repoUrl
     type: string
-    default: 'https://github.com/RakeemRanger/ProdEngAgent'
+    default: 'ProdEngAgent'
 
 steps:
   - checkout: ${{ parameters.repoUrl }}
@@ -14,4 +14,4 @@ steps:
 
   - ${{ if ne(parameters.armFilePath, 'default') }}:
       script: test -s ${{ parameters.armFilePath }}
-      
+
