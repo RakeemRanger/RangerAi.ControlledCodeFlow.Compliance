@@ -4,4 +4,4 @@ parameters:
     default: 'default'
 
 steps:
-  - script: echo ${{parameters.armFilePath }}
+  - script: echo $( parameters.armFilePath )
