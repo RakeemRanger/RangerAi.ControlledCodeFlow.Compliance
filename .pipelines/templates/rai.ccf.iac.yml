@@ -2,9 +2,14 @@ parameters:
   - name: armFilePath
     type: string
     default: 'default'
+  
+  - name: repoUrl
+    type: string
 
 steps:
+  - checkout: ${{ parameters.repoUrl }}
   - task: CmdLine@2
     displayName: Test File Path
-    inputs:
-      script: test -s ${{ parameters.armFilePath }}
+
+  - ${{ if ne(parameters.armFilePath, 'default') }}:
+    script: test -s ${{ parameters.armFilePath }}
